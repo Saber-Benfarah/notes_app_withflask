@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Notes</h2>
+<form method="POST" class="mb-4">
+  <div class="mb-3">
+    <input name="title" class="form-control" placeholder="Note Title" required>
+  </div>
+  <div class="mb-3">
+    <textarea name="content" class="form-control" placeholder="Note Content" rows="3" required></textarea>
+  </div>
+  <button class="btn btn-success">Add Note</button>
+</form>
+
+{% if notes %}
+  <div class="row">
+    {% for note in notes %}
+      <div class="col-md-4">
+        <div class="card mb-3 shadow">
+          <div class="card-body">
+            <h5 class="card-title">{{ note.title }}</h5>
+            <p class="card-text">{{ note.content }}</p>
+            <a href="{{ url_for('delete_note', index=loop.index0) }}" class="btn btn-sm btn-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted">No notes yet. Add one above!</p>
+{% endif %}
+{% endblock %}
